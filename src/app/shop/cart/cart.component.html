@@ -1,9 +1,15 @@
 
-<p>
-  cart works!
-</p>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let line of cart.lines">
+    {{line.product.name}}-{{line.quantity}}
+  </li>
+
+</ul>
+<div>cart lines:{{cart.lines.length}}</div>
+
 
 <footer class="text-right ">
+
 <button class="btn btn-default" routerLink="/checkout">结算</button>
 </footer>
 
