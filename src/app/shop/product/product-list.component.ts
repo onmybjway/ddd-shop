@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {Product} from "../../model/product";
 import {CartService} from "../../service/cart.service";
+declare var Materialize:any;
 
 @Component({
   selector: 'product-list',
@@ -24,5 +25,7 @@ export class ProductListComponent implements OnInit {
 
   addToCart(product: Product): void {
     this.cartService.addLine(product, 1)
+
+    Materialize.toast('已加入购物车', 4000)
   }
 }

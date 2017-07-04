@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+// import * as $ from 'jquery';
+declare var $:any;
 
 @Component({
   selector: 'app-root',
@@ -6,6 +8,11 @@ import { Component } from '@angular/core';
   // template:'<router-outlet></router-outlet>',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'app';
+export class AppComponent implements OnInit{
+  ngOnInit(): void {
+
+    $(".button-collapse").sideNav();
+
+  }
+
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {ProductService} from "../../service/product.service";
 import {Location} from "@angular/common";
+declare var $:any;
 
 @Component({
   selector: 'app-product-detail',
@@ -19,6 +20,8 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.productId = this.route.snapshot.params.id
+
+    $('.carousel.carousel-slider').carousel({fullWidth: true});
   }
 
   goBack(): void {

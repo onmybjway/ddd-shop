@@ -1,5 +1,23 @@
-<div class="text-left">
-  <a class="btn " (click)="goBack()">&lt;</a>
 
+<div class="navbar-fixed" style="top: 0;position: fixed;">
+  <nav>
+    <div class="nav-wrapper blue">
+      <a class="btn-flat blue" (click)="goBack()" style="height:auto; color: #ffffff;">  <!--style="height: 4rem;" >-->
+        <i class="material-icons ">chevron_left</i>
+      </a>
+
+      <span class="text-center" style="width: 20rem">商品详情</span>
+
+    </div>
+  </nav>
 </div>
+
 <h1>{{productId}}</h1>
+
+<div class="carousel carousel-slider"  data-indicators="true">
+  <a class="carousel-item" href="#one!"><img src="https://lorempixel.com/800/400/food/1"></a>
+  <a class="carousel-item" href="#two!"><img src="https://lorempixel.com/800/400/food/2"></a>
+  <a class="carousel-item" href="#three!"><img src="https://lorempixel.com/800/400/food/3"></a>
+  <a class="carousel-item" href="#four!"><img src="https://lorempixel.com/800/400/food/4"></a>
+</div>
+<h2>"hello"</h2>

@@ -12,6 +12,7 @@ import {ProductService} from "./service/product.service";
 import { ProductDetailComponent } from './shop/product/product-detail.component';
 import { ProductListComponent } from './shop/product/product-list.component';
 import {CartService} from "./service/cart.service";
+import * as $ from 'jquery';
 
 @NgModule({
   declarations: [

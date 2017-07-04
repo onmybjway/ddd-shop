@@ -1,17 +1,21 @@
-<ul class="list-group row">
-  <li *ngFor="let product of  _products" class="list-group-item col-xs-12 col-sm-4 col-md-3">
-
-    <div class="thumbnail"><img src="{{product.imgPrimary}}" class="img-thumbnail col-xs-4" />
-
-      <div class="caption">
-        <h3>{{product.name}}</h3>
+<ul class=" row">
+  <li *ngFor="let product of  _products" class="card col s6 m4 l3">
+    <a [routerLink]="['/product',product.id]" >
+    <div class="card-image">
+      <img src="{{product.imgPrimary}}" />
+      <!--<span class="card-title">Card Title</span>-->
+    </div>
+      <div class="card-content">
+        <strong>{{product.name}}</strong>
         <div class="badge">{{product.price|currency:"CNY":true}}</div>
         <p>{{product.description}}</p>
-        <div class="text-right">
-          <a [routerLink]="['/product',product.id]" class="btn btn-default">详情</a>
-          <a class="btn btn-default" (click)="addToCart(product)">加入购物车</a>
-        </div>
+
       </div>
-    </div>
+<!--    <div class="card-action">
+      <a [routerLink]="['/product',product.id]" class="btn blue">详情</a>
+      <a class="btn blue" (click)="addToCart(product)">购买</a>
+
+    </div>-->
+    </a>
   </li>
 </ul>
