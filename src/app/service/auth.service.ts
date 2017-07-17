@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
+import {MemberSummary} from "../model/member-summary.model";
 
 @Injectable()
 export class AuthService {
@@ -34,9 +35,19 @@ export class AuthService {
     )
   }
 
-
   get authenticated(): boolean {
     return this.token != null;
   }
+
+  get currentMember():MemberSummary{
+    if(!this.authenticated){
+      return null
+    }
+
+    //todo: change the mock user
+    return new MemberSummary(10000,"Tom")
+
+  }
+
 
 }

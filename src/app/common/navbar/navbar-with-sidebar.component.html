@@ -1,7 +1,7 @@
-<nav class="blue" >
+<nav class="blue">
   <div class="nav-wrapper">
-    <div  class="brand-logo">DDD-SHOP</div>
-    <div  data-activates="slide-out" class="button-collapse" ><i class="material-icons">menu</i></div>
+    <div class="brand-logo">DDD-SHOP</div>
+    <div data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></div>
     <ul class="right hide-on-med-and-down">
 
       <li><a routerLink="/discover">发现</a></li>
@@ -11,18 +11,36 @@
       <li></li>
     </ul>
     <ul id="slide-out" class="side-nav">
-      <li><div class="user-view">
-        <div class="background">
-          <!--<img src="images/office.jpg">-->
+      <li>
+
+        <div class="user-view" *ngIf="authService.authenticated">
+          <div class="background">
+            <!--<img src="images/office.jpg">-->
+          </div>
+          <a href="#!user"><!--<img class="circle" src="images/yuna.jpg">--></a>
+          <a href="#!name"><span class="white-text name">John Doe</span></a>
+          <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
         </div>
-        <a href="#!user"><!--<img class="circle" src="images/yuna.jpg">--></a>
-        <a href="#!name"><span class="white-text name">John Doe</span></a>
-        <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-      </div></li>
+
+      </li>
+
+      <li *ngIf="authService.authenticated">
+        <a routerLink="/me">Hello {{authService.currentMember.name}}</a>
+        <a class="waves-effect" routerLink="/logout">退出</a>
+      </li>
+
+      <li *ngIf="!authService.authenticated">
+        <a class="waves-effect" routerLink="/login">点击登录</a>
+      </li>
+
+
       <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
       <li><a href="#!">Second Link</a></li>
-      <li><div class="divider"></div></li>
+      <li>
+        <div class="divider"></div>
+      </li>
       <li><a class="subheader">Subheader</a></li>
+
       <li><a class="waves-effect" routerLink="/home">首页</a></li>
       <li><a class="waves-effect" routerLink="/discover">发现</a></li>
     </ul>

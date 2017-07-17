@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../service/auth.service";
 declare var $:any;
 
 @Component({
@@ -8,7 +9,7 @@ declare var $:any;
 })
 export class NavbarWithSidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService :AuthService) { }
 
   ngOnInit() {
     $(".button-collapse").sideNav();
