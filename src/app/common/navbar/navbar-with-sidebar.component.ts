@@ -15,4 +15,10 @@ export class NavbarWithSidebarComponent implements OnInit {
     $(".button-collapse").sideNav();
   }
 
+  logout(){
+    if(confirm("确认退出吗？")){
+      this.authService.clear()
+    }
+  }
+
 }

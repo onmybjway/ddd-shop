@@ -35,6 +35,10 @@ export class AuthService {
     )
   }
 
+  clear(){
+    this.token = null
+  }
+
   get authenticated(): boolean {
     return this.token != null;
   }
