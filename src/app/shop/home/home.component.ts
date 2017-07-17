@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Product} from "../../model/product";
+import {Component, OnInit} from "@angular/core";
+import {Product} from "../../model/product.model";
 import {ProductService} from "../../service/product.service";
 
 @Component({
@@ -10,14 +10,20 @@ import {ProductService} from "../../service/product.service";
 export class HomeComponent implements OnInit {
 
 
-  private _products:Product[]
-  constructor(private productService:ProductService) { }
+  private _products: Product[]
 
-  ngOnInit() {
-  this._products = this.productService.allProducts();
-
+  constructor(private productService: ProductService) {
   }
 
+  ngOnInit() {
+
+    // this.productService.allProducts().then(products => this._products = products);
+    this.productService.allProducts().subscribe(
+      products => this._products = products,
+    err=>alert("加载失败")
+    )
+
+  }
 
 
 }

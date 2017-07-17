@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule, JsonpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,7 +14,12 @@ import {ProductService} from "./service/product.service";
 import { ProductDetailComponent } from './shop/product/product-detail.component';
 import { ProductListComponent } from './shop/product/product-list.component';
 import {CartService} from "./service/cart.service";
-import * as $ from 'jquery';
+import { NavbarComponent } from './common/navbar/navbar.component';
+import { NavbarWithSidebarComponent } from './common/navbar/navbar-with-sidebar.component';
+import { LoginComponent } from './common/authentication/login.component';
+import {AuthService} from "./service/auth.service";
+import {AuthGuard} from "./service/auth-guard.service";
+
 
 @NgModule({
   declarations: [
@@ -23,13 +30,20 @@ import * as $ from 'jquery';
     MeComponent,
     DiscoverComponent,
     ProductDetailComponent,
-    ProductListComponent
+    ProductListComponent,
+    NavbarComponent,
+    NavbarWithSidebarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule,
+    FormsModule
   ],
-  providers: [ProductService,CartService],
+  providers: [ProductService,CartService,AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

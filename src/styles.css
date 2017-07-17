@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 /*@import '~bootstrap/dist/css/bootstrap.css';*/
-
 @import "~materialize-css/dist/css/materialize.min.css";
+
+.footer-bottom-fixed {
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  height:4rem;
+}

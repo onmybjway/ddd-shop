@@ -6,19 +6,23 @@ import {HomeComponent} from "./shop/home/home.component";
 import {MeComponent} from "./shop/me/me.component";
 import {DiscoverComponent} from "./shop/discover/discover.component";
 import {ProductDetailComponent} from "./shop/product/product-detail.component";
+import {LoginComponent} from "./common/authentication/login.component";
+import {AuthGuard} from "./service/auth-guard.service";
 
 const routes: Routes = [
   {
     // path: '**', redirectTo: "home"
-    path: '',redirectTo: "home",pathMatch:'full'
+    path: '', redirectTo: "home", pathMatch: 'full'
   },
   {path: 'home', component: HomeComponent},
   {path: 'discover', component: DiscoverComponent},
   {path: 'checkout', component: CheckoutComponent},
   {path: 'cart', component: CartComponent},
-  {path: 'me', component: MeComponent},
-
+  {path: 'me', component: MeComponent,canActivate:[AuthGuard]},
+  {path: 'login', component: LoginComponent},
   {path: 'product/:id', component: ProductDetailComponent},
+
+
 
 ];
 

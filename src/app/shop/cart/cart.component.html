@@ -1,46 +1,42 @@
+<app-navbar title="购物车"></app-navbar>
 
-<ul class="">
-  <li class="" *ngFor="let line of cart.lines">
-    {{line.product.name}}-{{line.quantity}}
-  </li>
+<div *ngIf="isEmpty();else cartContent" class="card-panel">购物车空空</div>
 
+<ng-template #cartContent>
 
-</ul>
-<div>cart lines:{{cart.lines.length}}</div>
-
-
-<!--
-<footer class="text-right ">
-
-<button class="btn btn-default" routerLink="/checkout">结算</button>
-</footer>
--->
-
-
-
-
-<footer class="page-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col l6 s12">
-        <h5 class="white-text">Footer Content</h5>
-        <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+  <ul class="collection">
+    <li class="collection-item row" *ngFor="let line of cart.lines;index as i">
+      <div class=" col s3">
+        <a [routerLink]="['/product',line.product.id]">
+          <img src="{{line.product.imgPrimary}}" class="z-depth-1" style="width: 5rem"/></a>
       </div>
-      <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Links</h5>
-        <ul>
-          <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-        </ul>
+
+      <div class="col s6">
+        <strong>{{line.product.name}}</strong>
+        <div class="badge">单价: {{line.product.price|currency:"CNY":true}}</div>
+        <div>数量: {{line.quantity}}</div>
+        <div>小计: {{line.product.price*line.quantity |currency:"CNY":true}}</div>
       </div>
-    </div>
+      <div class="col s3">
+        <button class="btn blue" (click)="remove(line)">删除</button>
+      </div>
+    </li>
+  </ul>
+
+
+  <div class="container right-align">
+    <div>共有 <span class="red-text">{{cart.lines.length}}</span> 件商品</div>
+    <div>合计:<span class="red-text">XXXX.xx</span>元</div>
   </div>
-  <div class="footer-copyright">
-    <div class="container">
-      © 2014 Copyright Text
-      <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-    </div>
-  </div>
-</footer>
+
+
+  <div style="height: 8rem;"></div>
+
+  <footer class="footer-bottom-fixed blue center">
+
+    <button class="btn-flat white-text" routerLink="/checkout">去结算</button>
+
+
+  </footer>
+
+</ng-template>

@@ -2,7 +2,12 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {ProductService} from "../../service/product.service";
 import {Location} from "@angular/common";
-declare var $:any;
+import {CartService} from "../../service/cart.service";
+import {Product} from "../../model/product.model";
+
+declare var $: any;
+declare var Materialize: any;
+
 
 @Component({
   selector: 'app-product-detail',
@@ -11,20 +16,30 @@ declare var $:any;
 })
 export class ProductDetailComponent implements OnInit {
 
-  productId: number;
+  product: Product;
 
-  constructor(private productSerivce: ProductService,
+
+  constructor(private productSerivce: ProductService, private cartService: CartService,
               private route: ActivatedRoute,
               private location: Location) {
   }
 
   ngOnInit() {
-    this.productId = this.route.snapshot.params.id
-
+    let productId = this.route.snapshot.params.id
+    // this.product = this.productSerivce.getById(productId);
+// this.product = this.productSerivce.allProducts().find(p=>p.id==productId);
+    this.productSerivce.getById(productId).subscribe(product => this.product = product);
+    //
     $('.carousel.carousel-slider').carousel({fullWidth: true});
   }
 
   goBack(): void {
     this.location.back()
+  }
+
+  addToCart(product: Product): void {
+    this.cartService.addLine(product, 1)
+
+    Materialize.toast('已加入购物车', 1500)
   }
 }

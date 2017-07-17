@@ -1,0 +1,10 @@
+<app-navbar title="登录"></app-navbar>
+<div *ngIf="loginFailed">
+用户名密码错误！
+</div>
+
+  <input  [(ngModel)]="username">
+  <input  [(ngModel)]="password">
+
+  <button class="btn" (click)="login()">登录</button>
+

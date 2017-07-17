@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 // import * as $ from 'jquery';
-declare var $:any;
+
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,6 @@ declare var $:any;
 export class AppComponent implements OnInit{
   ngOnInit(): void {
 
-    $(".button-collapse").sideNav();
 
   }
 
