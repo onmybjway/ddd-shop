@@ -6,12 +6,13 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Observable} from "rxjs/Observable";
+import {RestHttpClient} from "../support/rest-http-client";
 
 
 @Injectable()
 export class ProductService {
 
-  constructor(private http :Http) {
+  constructor(private http :RestHttpClient) {
   }
 
   public allProducts(): Observable<Product[]> {

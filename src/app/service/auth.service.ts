@@ -1,13 +1,13 @@
 import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {MemberSummary} from "../model/member-summary.model";
 import {JwtHelper} from "angular2-jwt";
 import {environment} from "../../environments/environment";
+import {RestHttpClient} from "../support/rest-http-client";
+import {TokenHolder} from "../support/token-holder";
 
 @Injectable()
 export class AuthService {
-
   //
   private _formUrl: string
   get formUrl(): string {
@@ -19,44 +19,40 @@ export class AuthService {
   }
 
   private _jwtHelper: JwtHelper = new JwtHelper();
-  //
-  private _token: string
+
   private _currentMember: MemberSummary
 
 
-
-  constructor(private http: Http) {
+  constructor(private http: RestHttpClient) {
+    this._currentMember = this.parseMember(TokenHolder.token)
   }
 
   auth(userName: String, password: String): Observable<boolean> {
-    let options = new RequestOptions({headers: new Headers({'Content-Type': 'application/json'})});
-    return this.http.post("http://localhost:8080/auth/auth", {credential: {name: userName, password: password}},
-      options
-    ).map(response => {
-        let r = response.json()
-        if (r.valid) {
-          let user = this._jwtHelper.decodeToken(r.token);
-          this._currentMember = new MemberSummary(user.memberId, user.name)
-          this._token = r.token;
+    return this.http.post("http://localhost:8080/auth/auth", {credential: {name: userName, password: password}})
+      .map(response => {
+          let r = response.json()
+          if (r.valid) {
+            this._currentMember = this.parseMember(r.token)
+            this.setToken(r.token)
 
-          if (!environment.production) {
-            console.log("token:" + this._token)
-            console.log(user)
-            console.log(this._jwtHelper.isTokenExpired(this._token))
+            if (!environment.production) {
+              console.log("token:" + this.getToken())
+              console.log(this._jwtHelper.isTokenExpired(this.getToken()))
+            }
           }
+          return r.valid
         }
-        return r.valid
-      }
-    )
+      )
   }
 
   clear() {
-    this._token = null
-    this._currentMember =null
+
+    this.setToken("")
+    this._currentMember = null
   }
 
   isAuthenticated(): boolean {
-    return this._token != null && !this.isTokenExpired()
+    return this.getToken() != null && !this.isTokenExpired()
   }
 
   currentMember(): MemberSummary {
@@ -67,8 +63,21 @@ export class AuthService {
   }
 
   private isTokenExpired() {
-    return this._jwtHelper.isTokenExpired(this._token);
+    return this._jwtHelper.isTokenExpired(this.getToken());
   }
 
+  private setToken(token: string) {
+    TokenHolder.token = token
+  }
+
+  private getToken() {
+    return TokenHolder.token
+  }
+
+  private parseMember(token: string): MemberSummary {
+    if (token == null || token.trim().length == 0) return null
+    let user = this._jwtHelper.decodeToken(token);
+    return new MemberSummary(user.memberId, user.name)
+  }
 
 }

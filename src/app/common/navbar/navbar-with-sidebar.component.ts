@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {AuthService} from "../../service/auth.service";
 import {MemberSummary} from "../../model/member-summary.model";
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-navbar-with-sidebar',
@@ -10,9 +10,10 @@ declare var $:any;
 })
 export class NavbarWithSidebarComponent implements OnInit {
 
-  currentMember:MemberSummary;
+  currentMember: MemberSummary;
 
-  constructor(private _authService :AuthService) { }
+  constructor(private _authService: AuthService) {
+  }
 
   ngOnInit() {
     $(".button-collapse").sideNav();
@@ -20,13 +21,14 @@ export class NavbarWithSidebarComponent implements OnInit {
     this.currentMember = this._authService.currentMember();
   }
 
-  logout(){
-    if(confirm("确认退出吗？")){
+  logout() {
+    if (confirm("确认退出吗？")) {
       this._authService.clear()
+      this.currentMember = null
     }
   }
 
-  isAuthenticated():boolean{
+  isAuthenticated(): boolean {
     return this._authService.isAuthenticated()
   }
 
