@@ -5,19 +5,19 @@ import {AuthService} from "./auth.service";
 @Injectable()
 export class AuthGuard {
 
-  constructor(private authService:AuthService,private router:Router) { }
+  constructor(private _authService:AuthService,private _router:Router) { }
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): boolean{
 
     // let url: string = state.url;
 
-    if(this.authService.authenticated){
+    if(this._authService.isAuthenticated()){
       return true
     }
 
-    this.authService.formUrl =  state.url
-    this.router.navigateByUrl("/login")
+    this._authService.formUrl =  state.url
+    this._router.navigateByUrl("/login")
     return false
   }
 

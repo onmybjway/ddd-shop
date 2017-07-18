@@ -13,7 +13,7 @@
     <ul id="slide-out" class="side-nav">
       <li>
 
-        <div class="user-view" *ngIf="authService.authenticated">
+        <div class="user-view">
           <div class="background">
             <!--<img src="images/office.jpg">-->
           </div>
@@ -24,12 +24,12 @@
 
       </li>
 
-      <li *ngIf="authService.authenticated">
-        <a routerLink="/me">Hello {{authService.currentMember.name}}</a>
+      <li *ngIf="isAuthenticated()">
+        <a routerLink="/me">Hello {{currentMember.name}}</a>
         <a class="waves-effect" (click)="logout()">退出</a>
       </li>
 
-      <li *ngIf="!authService.authenticated">
+      <li *ngIf="!isAuthenticated()">
         <a class="waves-effect" routerLink="/login">点击登录</a>
       </li>
 

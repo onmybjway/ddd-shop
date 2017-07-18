@@ -2,21 +2,28 @@ import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {MemberSummary} from "../model/member-summary.model";
+import {JwtHelper} from "angular2-jwt";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class AuthService {
 
   //
-  private _formUrl:string
+  private _formUrl: string
   get formUrl(): string {
     return this._formUrl;
   }
+
   set formUrl(value: string) {
     this._formUrl = value;
   }
 
+  private _jwtHelper: JwtHelper = new JwtHelper();
   //
-  private token: string
+  private _token: string
+  private _currentMember: MemberSummary
+
+
 
   constructor(private http: Http) {
   }
@@ -28,29 +35,39 @@ export class AuthService {
     ).map(response => {
         let r = response.json()
         if (r.valid) {
-          this.token = r.token;
+          let user = this._jwtHelper.decodeToken(r.token);
+          this._currentMember = new MemberSummary(user.memberId, user.name)
+          this._token = r.token;
+
+          if (!environment.production) {
+            console.log("token:" + this._token)
+            console.log(user)
+            console.log(this._jwtHelper.isTokenExpired(this._token))
+          }
         }
         return r.valid
       }
     )
   }
 
-  clear(){
-    this.token = null
+  clear() {
+    this._token = null
+    this._currentMember =null
   }
 
-  get authenticated(): boolean {
-    return this.token != null;
+  isAuthenticated(): boolean {
+    return this._token != null && !this.isTokenExpired()
   }
 
-  get currentMember():MemberSummary{
-    if(!this.authenticated){
+  currentMember(): MemberSummary {
+    if (!this.isAuthenticated()) {
       return null
     }
+    return this._currentMember
+  }
 
-    //todo: change the mock user
-    return new MemberSummary(10000,"Tom")
-
+  private isTokenExpired() {
+    return this._jwtHelper.isTokenExpired(this._token);
   }
 
 
