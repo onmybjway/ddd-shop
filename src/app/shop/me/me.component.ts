@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MemberService} from "../../service/member.service";
+import {MemberSummary} from "../../model/member-summary.model";
 
 @Component({
   selector: 'app-me',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MeComponent implements OnInit {
 
-  constructor() { }
+  private _summary: MemberSummary
 
-  ngOnInit() {
+  constructor(private _memberService: MemberService) {
   }
 
+  ngOnInit() {
+    this._memberService.summary().subscribe(data => this._summary = data)
+  }
 }

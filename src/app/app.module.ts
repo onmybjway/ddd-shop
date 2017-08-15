@@ -20,6 +20,7 @@ import {LoginComponent} from "./common/authentication/login.component";
 import {AuthService} from "./service/auth.service";
 import {AuthGuard} from "./service/auth-guard.service";
 import {RestHttpClient} from "./support/rest-http-client";
+import {MemberService} from "./service/member.service";
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import {RestHttpClient} from "./support/rest-http-client";
     HttpModule,
     FormsModule
   ],
-  providers: [ProductService, CartService, AuthService, AuthGuard, RestHttpClient],
+  providers: [ProductService, CartService, MemberService,
+    AuthService, AuthGuard, RestHttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule {

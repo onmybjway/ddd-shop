@@ -34,9 +34,9 @@ export class RestHttpClient {
       options = new RequestOptions({headers: new Headers()});
 
     options.headers.set('Content-Type', 'application/json')
-    // if (!this._authService && this._authService.isAuthenticated()) {
+
     if (TokenHolder.token != null) {
-      if (!environment.production) console.log("send token" + TokenHolder.token)
+      // if (!environment.production) console.log("send token" + TokenHolder.token)
       options.headers.set("Authorization", "Bearer " + TokenHolder.token)
     }
     return options;

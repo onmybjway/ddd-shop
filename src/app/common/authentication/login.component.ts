@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.auth(this.username, this.password)
+    this.authService.authenticate(this.username, this.password)
       .subscribe(
         isSuccess => {
           if (isSuccess) {

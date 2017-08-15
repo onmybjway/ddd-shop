@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {AuthService} from "../../service/auth.service";
-import {MemberSummary} from "../../model/member-summary.model";
+import {UserPrincipal} from "../../model/user-principal.model";
 declare var $: any;
 
 @Component({
@@ -10,7 +10,7 @@ declare var $: any;
 })
 export class NavbarWithSidebarComponent implements OnInit {
 
-  currentMember: MemberSummary;
+  currentMember: UserPrincipal;
 
   constructor(private _authService: AuthService) {
   }
