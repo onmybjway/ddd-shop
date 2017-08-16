@@ -22,6 +22,7 @@ import {AuthGuard} from "./service/auth-guard.service";
 import {RestHttpClient} from "./support/rest-http-client";
 import {MemberService} from "./service/member.service";
 import {GlobalErrorHandler} from "./support/error-handler";
+import { LoadingComponent } from './common/loading/loading.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {GlobalErrorHandler} from "./support/error-handler";
     ProductListComponent,
     NavbarComponent,
     NavbarWithSidebarComponent,
-    LoginComponent
+    LoginComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
