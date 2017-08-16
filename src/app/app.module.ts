@@ -1,5 +1,5 @@
 import {BrowserModule} from "@angular/platform-browser";
-import {NgModule} from "@angular/core";
+import {ErrorHandler, NgModule} from "@angular/core";
 import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 
@@ -21,6 +21,7 @@ import {AuthService} from "./service/auth.service";
 import {AuthGuard} from "./service/auth-guard.service";
 import {RestHttpClient} from "./support/rest-http-client";
 import {MemberService} from "./service/member.service";
+import {GlobalErrorHandler} from "./support/error-handler";
 
 
 @NgModule({
@@ -43,8 +44,10 @@ import {MemberService} from "./service/member.service";
     HttpModule,
     FormsModule
   ],
-  providers: [ProductService, CartService, MemberService,
-    AuthService, AuthGuard, RestHttpClient],
+  providers: [
+    ProductService, CartService, MemberService,
+    AuthService, AuthGuard, RestHttpClient, {provide: ErrorHandler, useClass: GlobalErrorHandler}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
