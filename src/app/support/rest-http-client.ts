@@ -3,7 +3,7 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {TokenHolder} from "./token-holder";
 import 'rxjs/add/observable/throw';
-import {HttpException} from "./errors";
+import {Exception, HttpException, ServerSideException, UnauthorizedException, UnknownException} from "./errors";
 
 @Injectable()
 export class RestHttpClient {
@@ -11,9 +11,23 @@ export class RestHttpClient {
   constructor(private _http: Http) {
   }
 
-  get (url: string, options?: RequestOptionsArgs): Observable<Response> {
+  get(url: string, options?: RequestOptionsArgs): Observable<Response> {
     return this._http.get(url, this.processRequestOptions(options)).catch(response => {
-      return Observable.throw(new HttpException(response))
+      let exception: Exception;
+      switch (response.status) {
+        case 0:
+          exception = new HttpException(response);
+          break;
+        case 401:
+          exception = new UnauthorizedException();
+          break;
+        case 500:
+          exception = new ServerSideException(response);
+          break;
+        default:
+          exception = new UnknownException(response);
+      }
+      return Observable.throw(exception)
     })
   }
 

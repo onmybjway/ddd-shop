@@ -9,7 +9,7 @@ import {MemberSummary} from "../../model/member-summary.model";
 })
 export class MeComponent implements OnInit {
 
-  private _summary: MemberSummary
+  _summary: MemberSummary
 
   constructor(private _memberService: MemberService) {
   }

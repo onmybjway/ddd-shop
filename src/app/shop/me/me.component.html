@@ -1,4 +1,6 @@
 <app-navbar title="mememe"></app-navbar>
-<p>
+
+<p *ngIf="_summary">
   {{_summary.memberName}}@{{_summary.regDate}}
 </p>
+

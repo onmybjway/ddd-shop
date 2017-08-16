@@ -1,5 +1,5 @@
 export enum ExceptionLocation {
-  Unknown, Network, ServerSide, ClientSide,
+  Unknown, Network, ServerSide, ClientSide, Unauthorized
 }
 
 export class Exception extends Error {
@@ -16,10 +16,32 @@ export class Exception extends Error {
   }
 }
 
+export class UnknownException extends Exception {
+  constructor(data?: any) {
+    super("unknow excption", ExceptionLocation.Unknown, data)
+  }
+}
+
 export class HttpException extends Exception {
   constructor(response: Response) {
     super(response.toString(), ExceptionLocation.Network, response)
   }
 }
 
+export class UnauthorizedException extends Exception {
+  constructor() {
+    super("unauthorized", ExceptionLocation.Unauthorized)
+  }
+}
+
+export class ServerSideException extends Exception {
+  constructor(response: Response) {
+    super(ServerSideException.parseMessage(response), ExceptionLocation.ServerSide)
+  }
+
+  private static parseMessage(response: Response): string {
+    //todo:
+    return response.toString()
+  }
+}
 
