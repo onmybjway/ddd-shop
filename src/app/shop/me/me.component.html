@@ -1,7 +1,7 @@
-<app-navbar title="mememe"></app-navbar>
+<app-navbar title="标题"></app-navbar>
 
 <p *ngIf="_summary">
   {{_summary.memberName}}@{{_summary.regDate}}
 </p>
 
-<app-loading [data]="this._summary"></app-loading>
+<app-loading [data]="_summary"></app-loading>

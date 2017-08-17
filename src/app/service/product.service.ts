@@ -1,17 +1,16 @@
 import {Injectable} from "@angular/core";
 import {Product} from "../model/product.model";
-
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Observable} from "rxjs/Observable";
-import {RestHttpClient} from "../support/rest-http-client";
+import {Http} from "@angular/http";
 
 
 @Injectable()
 export class ProductService {
 
-  constructor(private http: RestHttpClient) {
+  constructor(private http: Http) {
   }
 
   public allProducts(): Observable<Product[]> {

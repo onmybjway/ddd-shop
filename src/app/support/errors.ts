@@ -4,11 +4,11 @@ export enum ExceptionLocation {
 
 export class Exception extends Error {
 
-  readonly occurAt: ExceptionLocation = ExceptionLocation.Unknown
+  readonly occurAt: ExceptionLocation;
 
   constructor(message: string, occurAt: ExceptionLocation, public data?: any) {
-    super(message)
-    this.occurAt = occurAt
+    super(message);
+    this.occurAt = occurAt;
 
     // add it because:
     //https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
@@ -18,7 +18,7 @@ export class Exception extends Error {
 
 export class UnknownException extends Exception {
   constructor(data?: any) {
-    super("unknow excption", ExceptionLocation.Unknown, data)
+    super("unknown exception", ExceptionLocation.Unknown, data)
   }
 }
 

@@ -1,12 +1,13 @@
 import {Injectable} from "@angular/core";
-import {RestHttpClient} from "../support/rest-http-client";
 import {Observable} from "rxjs/Observable";
 import {MemberSummary} from "../model/member-summary.model";
+
+import {Http} from "@angular/http";
 
 @Injectable()
 export class MemberService {
 
-  constructor(private _http: RestHttpClient) {
+  constructor(private _http: Http) {
   }
 
   summary(): Observable<MemberSummary> {
