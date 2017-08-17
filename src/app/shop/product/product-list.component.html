@@ -1,21 +1,21 @@
 <ul class=" row">
   <li *ngFor="let product of  _products" class="card col s6 m4 l3">
-    <a [routerLink]="['/product',product.id]" >
-    <div class="card-image">
-      <img src="{{product.imgPrimary}}" />
-      <!--<span class="card-title">Card Title</span>-->
-    </div>
+    <a [routerLink]="['/product',product.id]">
+      <div class="card-image">
+        <img src="{{product.imgPrimary}}"/>
+        <!--<span class="card-title">Card Title</span>-->
+      </div>
       <div class="card-content">
         <strong>{{product.name}}</strong>
         <span class="badge">{{product.price|currency:"CNY":true}}</span>
         <p>{{product.description}}</p>
 
       </div>
-<!--    <div class="card-action">
-      <a [routerLink]="['/product',product.id]" class="btn blue">详情</a>
-      <a class="btn blue" (click)="addToCart(product)">购买</a>
+      <!--    <div class="card-action">
+            <a [routerLink]="['/product',product.id]" class="btn blue">详情</a>
+            <a class="btn blue" (click)="addToCart(product)">购买</a>
 
-    </div>-->
+          </div>-->
     </a>
   </li>
 </ul>

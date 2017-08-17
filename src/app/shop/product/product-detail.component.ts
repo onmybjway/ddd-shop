@@ -8,27 +8,24 @@ import {Product} from "../../model/product.model";
 declare var $: any;
 declare var Materialize: any;
 
-
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-
   product: Product;
 
-
-  constructor(private productSerivce: ProductService, private cartService: CartService,
+  constructor(private productSerivce: ProductService,
+              private cartService: CartService,
               private route: ActivatedRoute,
               private location: Location) {
   }
 
   ngOnInit() {
     let productId = this.route.snapshot.params.id
-    // this.product = this.productSerivce.getById(productId);
-// this.product = this.productSerivce.allProducts().find(p=>p.id==productId);
     this.productSerivce.getById(productId).subscribe(product => this.product = product);
+
     //
     $('.carousel.carousel-slider').carousel({fullWidth: true});
   }
@@ -39,7 +36,6 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart(product: Product): void {
     this.cartService.addLine(product, 1)
-
     Materialize.toast('已加入购物车', 1500)
   }
 }
