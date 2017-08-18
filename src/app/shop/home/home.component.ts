@@ -9,13 +9,13 @@ import {ProductService} from "../../service/product.service";
 })
 export class HomeComponent implements OnInit {
 
-  private _products: Product[]
+  products: Product[]
 
   constructor(private productService: ProductService) {
   }
 
   ngOnInit() {
-    this.productService.allProducts().subscribe(products => this._products = products)
+    this.productService.allProducts().subscribe(products => this.products = products)
 
   }
 

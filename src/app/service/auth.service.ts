@@ -2,21 +2,22 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {UserPrincipal} from "../model/user-principal.model";
 import {JwtHelper} from "angular2-jwt";
-import {environment} from "../../environments/environment";
-// import {RestHttpClient} from "../support/rest-http-client";
 import {TokenHolder} from "../support/token-holder";
-import {Http, Headers} from '@angular/http';
+import {Headers, Http} from '@angular/http';
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class AuthService {
+  private _resourceUrl = environment.server + "/oauth"
+
   //
-  private _formUrl: string
-  get formUrl(): string {
-    return this._formUrl;
+  private _fromUrl: string
+  get fromUrl(): string {
+    return this._fromUrl ? this._fromUrl : "/";
   }
 
-  set formUrl(value: string) {
-    this._formUrl = value;
+  set fromUrl(value: string) {
+    this._fromUrl = value;
   }
 
   private _jwtHelper: JwtHelper = new JwtHelper();
@@ -27,26 +28,27 @@ export class AuthService {
   constructor(private http: Http) {
     this._currentUser = this.parsePrincipalFrom(TokenHolder.token)
   }
-/*
 
-  auth(userName: String, password: String): Observable<boolean> {
-    return this.http.post("http://localhost:8080/auth/auth", {credential: {name: userName, password: password}})
-      .map(response => {
-          let r = response.json()
-          if (r.valid) {
-            this._currentUser = this.parsePrincipalFrom(r.token)
-            this.setToken(r.token)
+  /*
 
-            if (!environment.production) {
-              console.log("token:" + this.getToken())
-              console.log(this._jwtHelper.isTokenExpired(this.getToken()))
+    auth(userName: String, password: String): Observable<boolean> {
+      return this.http.post("http://localhost:8080/auth/auth", {credential: {name: userName, password: password}})
+        .map(response => {
+            let r = response.json()
+            if (r.valid) {
+              this._currentUser = this.parsePrincipalFrom(r.token)
+              this.setToken(r.token)
+
+              if (!environment.production) {
+                console.log("token:" + this.getToken())
+                console.log(this._jwtHelper.isTokenExpired(this.getToken()))
+              }
             }
+            return r.valid
           }
-          return r.valid
-        }
-      )
-  }
-*/
+        )
+    }
+  */
 
   /*
 
@@ -57,7 +59,7 @@ export class AuthService {
     headers.append("Content-Type", "application/x-www-form-urlencoded")
 
     return this.http.post(
-      `http://localhost:8001/oauth/token?grant_type=password&scope=read&username=${userName}&password=${password}`, "",
+      `${this._resourceUrl}/token?grant_type=password&scope=read&username=${userName}&password=${password}`, "",
       {headers: headers})
       .map(response => {
         let r = response.json()
@@ -70,7 +72,6 @@ export class AuthService {
   }
 
   clear() {
-
     this.setToken("")
     this._currentUser = null
   }

@@ -17,7 +17,7 @@ export class AuthGuard {
       return true
     }
 
-    // this._authService.formUrl = state.url
+    // this._authService.fromUrl = state.url
     // this._router.navigateByUrl("/login")
     this.gotoLogin(state.url)
     return false
@@ -27,7 +27,7 @@ export class AuthGuard {
   when fromurl is empty or null then set fromurl=current url
    */
   gotoLogin(fromUrl: string) {
-    this._authService.formUrl = fromUrl ? fromUrl : this._router.url;
+    this._authService.fromUrl = fromUrl ? fromUrl : this._router.url;
     this._router.navigateByUrl("/login")
   }
 }

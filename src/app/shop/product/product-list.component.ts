@@ -7,12 +7,9 @@ import {Product} from "../../model/product.model";
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  @Input("data")
-  set products(value: Product[]) {
-    this._products = value;
-  }
 
-  private _products: Product[]
+  @Input("data")
+  products: Product[]
 
   ngOnInit() {
   }

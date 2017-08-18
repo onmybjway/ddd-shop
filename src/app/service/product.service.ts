@@ -5,10 +5,12 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Observable} from "rxjs/Observable";
 import {Http} from "@angular/http";
-
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class ProductService {
+
+  private _resourceUrl = environment.server + "/product"
 
   constructor(private http: Http) {
   }
@@ -30,12 +32,12 @@ export class ProductService {
         ]);*/
 
 // return this.http.get("http://localhost:8000/product").toPromise().then(response=>response.json() as Product[])
-    return this.http.get("http://localhost:8000/product").map(response => response.json() || {})
+    return this.http.get(this._resourceUrl).map(response => response.json() || {})
 
   }
 
   public getById(productId: string): Observable<Product> {
-    return this.http.get("http://localhost:8000/product/" + productId).map(response => response.json() || {})
+    return this.http.get(`${this._resourceUrl}/${productId}`).map(response => response.json() || {})
   }
 
 }

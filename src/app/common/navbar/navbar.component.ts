@@ -16,8 +16,6 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
   }
 
   goBack(): void {

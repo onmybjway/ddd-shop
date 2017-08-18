@@ -1,5 +1,5 @@
 <ul class=" row">
-  <li *ngFor="let product of  _products" class="card col s6 m4 l3">
+  <li *ngFor="let product of products" class="card col s6 m4 l3">
     <a [routerLink]="['/product',product.id]">
       <div class="card-image">
         <img src="{{product.imgPrimary}}"/>

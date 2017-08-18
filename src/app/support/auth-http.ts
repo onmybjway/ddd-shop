@@ -3,6 +3,8 @@ import {Observable} from "rxjs/Observable";
 import {Exception, HttpException, ServerSideException, UnauthorizedException, UnknownException} from "./errors";
 import {TokenHolder} from "./token-holder";
 import {Injectable} from "@angular/core";
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class AuthHttp extends Http {

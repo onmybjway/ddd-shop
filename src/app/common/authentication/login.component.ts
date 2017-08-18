@@ -8,9 +8,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  private loginFailed: boolean = false
-  private username: string = "user"
-  private password: string = "pwd"
+  loginFailed: boolean = false
+  username: string = "member1"
+  password: string = "pwd"
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -20,21 +20,11 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.authenticate(this.username, this.password)
-      .subscribe(
-        isSuccess => {
-          if (isSuccess) {
-            this.router.navigateByUrl(this.authService.formUrl ? this.authService.formUrl : "/")
-            return
-          }
+      .subscribe(isSuccess => {
+          if (isSuccess) this.router.navigateByUrl(this.authService.fromUrl);
 
-          //
-          this.loginFailed = true
-        },
-        err => {
-          console.log(err)
-          alert("登录请求失败")
-        },
-        () => console.log("login complete")
+          this.loginFailed = !isSuccess
+        }
       )
   }
 }
