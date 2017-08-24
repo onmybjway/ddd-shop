@@ -8,9 +8,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginFailed: boolean = false
-  username: string = "member1"
-  password: string = "pwd"
+  username: string
+  password: string
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -23,7 +22,14 @@ export class LoginComponent implements OnInit {
       .subscribe(isSuccess => {
           if (isSuccess) this.router.navigateByUrl(this.authService.fromUrl);
 
-          this.loginFailed = !isSuccess
+        }
+        , err => {
+          if (err.data && err.data.status == 400) {
+            alert("验证失败，错误的用户名密码");
+            return
+          }
+
+          throw err
         }
       )
   }

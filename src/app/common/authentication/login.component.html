@@ -1,10 +1,33 @@
 <app-navbar title="登录"></app-navbar>
-<div *ngIf="loginFailed">
-用户名密码错误！
-</div>
 
-  <input  [(ngModel)]="username">
-  <input  [(ngModel)]="password" type="password">
 
-  <button class="btn" (click)="login()">登录</button>
+<form #loginForm="ngForm" (ngSubmit)="login()">
+  <div class="row">
+    <div class="input-field col s12">
+      <label for="name">用户名</label>
+      <input id="name" name="name" required #name="ngModel" [(ngModel)]="username" type="text">
+    </div>
+    <div *ngIf="name.invalid && !name.pristine">
+      必填
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <label for="password">密码</label>
+      <input id="password" name="password" #pwd="ngModel" [(ngModel)]="password" type="password" required>
+    </div>
+    <div *ngIf="pwd.invalid && !pwd.pristine">
+      必填
+    </div>
+  </div>
+
+  <div class="row center">
+    <button type="submit" class="btn" [disabled]="!loginForm.form.valid">登录</button>
+    <p>注册新账号</p>
+  </div>
+
+
+</form>
+
 

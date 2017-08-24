@@ -17,7 +17,7 @@ export class AuthHttp extends Http {
     if (typeof url === "string") {
       options = this.processRequestOptions(options)
     } else {
-      if (TokenHolder.token) {
+      if (TokenHolder.token && !url.headers.has("Authorization")) {
         url.headers.set("Authorization", "Bearer " + TokenHolder.token)
       }
     }

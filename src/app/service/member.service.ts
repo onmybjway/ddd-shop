@@ -14,7 +14,7 @@ export class MemberService {
   }
 
   summary(): Observable<MemberSummary> {
-    return this._http.get(`${this._resourceUrl}/summary}`).map(response => response.json() || {})
+    return this._http.get(`${this._resourceUrl}/summary`).map(response => response.json() || {})
   }
 
 }
