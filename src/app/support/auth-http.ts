@@ -1,6 +1,13 @@
 import {Headers, Http, Request, RequestOptions, RequestOptionsArgs, Response, XHRBackend} from "@angular/http";
 import {Observable} from "rxjs/Observable";
-import {Exception, HttpException, ServerSideException, UnauthorizedException, UnknownException} from "./errors";
+import {
+  AccessDeniedException,
+  Exception,
+  HttpException,
+  ServerSideException,
+  UnauthorizedException,
+  UnknownException
+} from "./errors";
 import {TokenHolder} from "./token-holder";
 import {Injectable} from "@angular/core";
 import 'rxjs/add/operator/catch';
@@ -28,8 +35,14 @@ export class AuthHttp extends Http {
         case 0:
           exception = new HttpException(response);
           break;
+        case 400:
+          exception = new ServerSideException(response);
+          break;
         case 401:
           exception = new UnauthorizedException();
+          break;
+        case 403:
+          exception = new AccessDeniedException();
           break;
         case 500:
           exception = new ServerSideException(response);

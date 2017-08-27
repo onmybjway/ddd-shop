@@ -1,6 +1,7 @@
 import {ErrorHandler, Injectable, Injector} from "@angular/core";
 import {ExceptionLocation} from "./errors";
 import {AuthGuard} from "../service/auth-guard.service";
+import {Location} from "@angular/common";
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
@@ -21,9 +22,13 @@ export class GlobalErrorHandler implements ErrorHandler {
           alert("客户端异常")
           break;
         case ExceptionLocation.Unauthorized:
-          alert("授权已过期，请重新登录")
+          alert("授权已过期，请重新登录");
           // goto login
-          this.injector.get(AuthGuard).gotoLogin(null)
+          this.injector.get(AuthGuard).gotoLogin(null);
+          break;
+        case ExceptionLocation.AccessDinied:
+          alert("权限不足，拒绝访问");
+          this.injector.get(Location).back();
           break;
         default:
           alert("未知异常");

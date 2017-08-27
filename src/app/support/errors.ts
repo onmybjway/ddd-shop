@@ -1,5 +1,5 @@
 export enum ExceptionLocation {
-  Unknown, Network, ServerSide, ClientSide, Unauthorized
+  Unknown, Network, ServerSide, ClientSide, Unauthorized, AccessDinied
 }
 
 export class Exception extends Error {
@@ -31,6 +31,12 @@ export class HttpException extends Exception {
 export class UnauthorizedException extends Exception {
   constructor() {
     super("unauthorized", ExceptionLocation.Unauthorized)
+  }
+}
+
+export class AccessDeniedException extends Exception {
+  constructor() {
+    super("AccessDenied", ExceptionLocation.AccessDinied)
   }
 }
 
