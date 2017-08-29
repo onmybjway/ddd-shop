@@ -80,7 +80,7 @@ export class AuthService {
     return this.getToken() != null && !this.isTokenExpired()
   }
 
-  currentMember(): UserPrincipal {
+  get currentMember(): UserPrincipal {
     if (!this.isAuthenticated()) {
       return null
     }
@@ -102,7 +102,7 @@ export class AuthService {
   private parsePrincipalFrom(token: string): UserPrincipal {
     if (token == null || token.trim().length == 0) return null
     let user = this._jwtHelper.decodeToken(token);
-    return new UserPrincipal(user.id, user.user_name)
+    return new UserPrincipal(user.user_id, user.user_name)
   }
 
 }

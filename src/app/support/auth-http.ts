@@ -44,6 +44,9 @@ export class AuthHttp extends Http {
         case 403:
           exception = new AccessDeniedException();
           break;
+        case 404:
+          exception = new HttpException(response);
+          break;
         case 500:
           exception = new ServerSideException(response);
           break;

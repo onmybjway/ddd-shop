@@ -13,7 +13,12 @@ export class GlobalErrorHandler implements ErrorHandler {
     if (error.occurAt) {
       switch (error.occurAt) {
         case ExceptionLocation.Network:
-          alert("网络异常")
+          if (error.data && error.data.status == 404) {
+            alert("请求资源不存在")
+          } else {
+            alert("网络异常")
+          }
+
           break;
         case ExceptionLocation.ServerSide:
           alert("服务端异常:" + error.message)

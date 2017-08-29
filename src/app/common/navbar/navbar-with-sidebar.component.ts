@@ -18,7 +18,7 @@ export class NavbarWithSidebarComponent implements OnInit {
   ngOnInit() {
     $(".button-collapse").sideNav();
 
-    this.currentMember = this._authService.currentMember();
+    this.currentMember = this._authService.currentMember;
   }
 
   logout() {
